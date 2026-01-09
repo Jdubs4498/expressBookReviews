@@ -12,15 +12,35 @@ public_users.post("/register", (req,res) => {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  //Write your code here
+  res.json(books);
   return res.status(300).json({message: "Yet to be implemented"});
 });
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
- });
+    const ISBN = req.params.isbn;
+    const booksBasedOnIsbn = (ISBN) => {
+        return new Promise((resolve,reject) =>{
+          setTimeout(() =>{
+            const book = books.find((b) => b.isbn === ISBN);
+            if(book){
+              resolve(book);
+            }else{
+              reject(new Error("Book not found"));
+            }},1000);
+        });
+    
+            
+    }
+    booksBasedOnIsbn(ISB).then((book) =>{
+      res.json(book);
+    }).catch((err)=>{
+      res.status(400).json({error:"Book not found"})
+    });
+      
+    //await res.send(books[ISBN]);    
+   
+   });
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
