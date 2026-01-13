@@ -44,14 +44,48 @@ public_users.get('/isbn/:isbn',function (req, res) {
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  const author = req.params.author;
+  const booksBasedOnAuthor = (auth) => {
+        return new Promise((resolve,reject) =>{
+          setTimeout(() =>{
+            const filteredbooks = books.filter((b) => b.author === auth);
+            if(filteredbooks>0){
+              resolve(filteredbooks);
+            }else{
+              reject(new Error("Book not found"));
+            }},1000);
+        });
+    
+            
+    }
+    booksBasedOnAuthor(author).then((book) =>{
+      res.json(book);
+    }).catch((err)=>{
+      res.status(400).json({error:"Book not found"})
+    });
 });
 
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+const title = req.params.title;
+  const booksBasedOnTitle = (booktitle) => {
+        return new Promise((resolve,reject) =>{
+          setTimeout(() =>{
+            const filteredbooks = books.filter((b) => b.title === booktitle);
+            if(filteredbooks>0){
+              resolve(filteredbooks);
+            }else{
+              reject(new Error("Book not found"));
+            }},1000);
+        });
+    
+            
+    }
+    booksBasedOnTitle(title).then((new_books) =>{
+      res.json(new_books);
+    }).catch((err)=>{
+      res.status(400).json({error:"Book not found"})
+    });
 });
 
 //  Get book review
