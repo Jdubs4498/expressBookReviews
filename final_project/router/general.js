@@ -32,7 +32,7 @@ public_users.get('/isbn/:isbn',function (req, res) {
     
             
     }
-    booksBasedOnIsbn(ISB).then((book) =>{
+    booksBasedOnIsbn(ISBN).then((book) =>{
       res.json(book);
     }).catch((err)=>{
       res.status(400).json({error:"Book not found"})
